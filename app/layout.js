@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <p>Ich bin im Root Layout</p>
       </body>
     </html>
   );

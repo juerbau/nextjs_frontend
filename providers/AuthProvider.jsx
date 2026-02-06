@@ -1,4 +1,4 @@
-// app/providers/AuthProvider.tsx
+
 "use client";
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
@@ -8,7 +8,7 @@ import { apiFetch } from "@/lib/api";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState(null);
 
     // loading=true heißt: "Noch nicht entschieden, ob eingeloggt"
     const [loading, setLoading] = useState(true);
