@@ -7,6 +7,9 @@ import { fetchWithAuth } from '@/utils/fetchWithAuth';
 
 //import Link from "next/link";
 
+const API = process.env.NEXT_PUBLIC_API_URL;
+// console.log("API: ", API);
+
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -23,7 +26,7 @@ export default function LoginPage() {
         // 1. Zuerst das CSRF-Cookie bei Laravel anfordern
         // Dies ist der kritische Initial-Aufruf, um die Session zu initialisieren.
         try {
-            await fetch('http://localhost:8000/sanctum/csrf-cookie', {credentials: 'include'});
+            await fetch(`${API}/sanctum/csrf-cookie`, {credentials: 'include'});
             console.log('✅ CSRF-Cookie erfolgreich angefordert und Session initialisiert.');
         } catch (csrfError) {
             setError('Fehler bei der Initialisierung der Session.');
@@ -32,7 +35,7 @@ export default function LoginPage() {
         }
 
         try {
-            const res = await fetchWithAuth('http://localhost:8000/login', {
+            const res = await fetchWithAuth(`${API}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -62,7 +65,7 @@ export default function LoginPage() {
     async function handleLogout(){
 
         try {
-            const res = await fetchWithAuth('http://localhost:8000/logout', {
+            const res = await fetchWithAuth(`${API}/logout`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -86,7 +89,7 @@ export default function LoginPage() {
 
 
     async function handleGetUser(){
-        const res = await fetchWithAuth('http://localhost:8000/api/user');
+        const res = await fetchWithAuth(`${API}/api/user`);
         if(res.ok){
             const data = await res.json();
             console.log(data.name);
